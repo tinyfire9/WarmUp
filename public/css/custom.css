@@ -1,0 +1,8 @@
+body{
+	background-image : url('/images/escheresque.png');
+	margin-top : 10%;
+}
+
+#conformation{
+	text-align: center;
+}
