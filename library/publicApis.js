@@ -1,9 +1,8 @@
 var YQL = require('yql');
-
-var accountSid = 'AC7e4b2165797346a1c01ff3dba72e5a27'; 
-var authToken = 'aceffca115a7dcb55063b7b3e8db8f0c'; 
-var client = require('twilio')(accountSid, authToken);
-
+var config = require('./config.js')
+, accountSid = config.accountSid
+, authToken = config.authToken
+, client = config.client;
 
 var PublicApis = function(){}
 
@@ -34,9 +33,8 @@ PublicApis.prototype.sendsms = function(phoneNumber, temprature, city){
 		to : "'" + phoneNumber + "'",
 		from : '+19287665019',
 		body : "Hey, the weather in " + city + " is " + temprature + " degrees. -Sent from WarmUp."
-	}, function(error){
-		if(error)
-			throw Error(error);
+	}, function(err, message){
+			process.stdout.write(message.status);
 	});
 }
 
