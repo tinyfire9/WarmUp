@@ -1,8 +1,42 @@
 body{
 	background-image : url('/images/escheresque.png');
-	margin-top : 10%;
+	
+}
+
+#wrapper{
+	margin-top : 7%;
 }
 
 #conformation{
 	text-align: center;
+}
+
+#warmUp{
+	font-family: 'cursive';
+	text-align: center;
+	font-weight: bold;
+	padding-top: 3%;
+}
+
+#grey{
+	color: #001F3F;
+}
+
+#red{
+	background-color: #FF4136;
+	color: #FFFFFF;
+	border-radius: 2px;
+	padding: 1px;
+}
+
+.col-sm-3{
+	color: #FF4136;
+}
+
+.glyphicon{
+	margin: 1px;
+}
+
+#submitDiv{
+	margin-left: 300px;
 }
