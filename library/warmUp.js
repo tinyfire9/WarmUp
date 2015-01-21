@@ -13,10 +13,7 @@ WarmUp.prototype.sendsms = PublicApis.prototype.sendsms;
 WarmUp.prototype.currentTemprature = PublicApis.prototype.currentTemprature;
 
 WarmUp.prototype.checkTempratureAndSendSMS = function(){
-	function wrap(callback)
-	{
-		callback();
-	}
+	var messageBody;
 	WarmUp.prototype.queryRecipient(function(error, recipients){
 		if(error)
 		{
@@ -35,7 +32,13 @@ WarmUp.prototype.checkTempratureAndSendSMS = function(){
 						}
 						if(weatherData.temprature < recipients[i].notificationTemprature)
 						{
-							WarmUp.prototype.sendsms(recipients[i].phoneNumber, weatherData.temprature, weatherData.city);
+							messageBody = "Hey, the weather in " + weatherData.city + " is " + weatherData.temprature + " degrees. -Sent from warmUp."
+							WarmUp.prototype.sendsms(recipients[i].phoneNumber, messageBody, function(error, message){
+								if(error)
+								{
+									throw Error(error);
+								}
+							});
 						}
 					});
             	})(i)
