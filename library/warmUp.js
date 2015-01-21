@@ -1,4 +1,3 @@
-var async = require('async');
 var models = require('../models/model.js');
 var clientModel = models.clientModel;
 
