@@ -8,6 +8,7 @@ exports.indexResponseHandler = function(req, res){
 
 exports.addRecipientResponseHandler = function(req, res){
 	var messageBody;
+	var degreeSign = String.fromCharCode(parseInt("00B0", 16));
 	WarmUp.currentTemprature(req.body.zipcode, function(error, weatherData){
 		if(error)
 		{
@@ -19,7 +20,9 @@ exports.addRecipientResponseHandler = function(req, res){
 								  error: "Oops! The zipcode, " + req.body.zipcode + ", does not exists!"
 								}));
 		}
-		messageBody = "Hi, Thanks for subscribing! The current temprature in " + weatherData.city + " is " + weatherData.temprature + ". We will notify you when the temprature is below " + req.body.notificationTemprature + "every 24 hours. -warmUp";
+		messageBody = "Hi, thank you for subscribing! The current temprature in " + weatherData.city + " is " +
+					   weatherData.temprature + " " + degreeSign + "F. We will notify you every 24 hours, if the temprature is below " + 
+					   req.body.notificationTemprature + " " + degreeSign + "F, -warmUp";
 		WarmUp.sendsms(req.body.phoneNumber, messageBody, function(error, message){
 			if(error)
 			{
