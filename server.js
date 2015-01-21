@@ -6,13 +6,18 @@ var express = require('express')
 , bodyParser = require('body-parser')
 , errorHandler = require('errorhandler')
 , jade = require('jade')
-, Recipient = require('./library/recipient.js');
+, Recipient = require('./library/recipient.js')
+, WarmUp = require('./library/warmUp.js')
+, routes = require('./controller/routes.js');
+
 
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(serverStatic(__dirname + '/public'));
+app.set('/views',__dirname + '/views');
 app.set('view engine', 'jade');
+
 
 switch(app.get('env'))
 {
@@ -23,6 +28,13 @@ switch(app.get('env'))
 		app.use(errorHandler());
 		break;
 }
+
+app.get('/', routes.indexResponseHandler);
+
+app.post('/', routes.addRecipientResponseHandler)
+
+var WarmUp = new WarmUp();
+WarmUp.checkTempratureAndSendSMS();
 
 console.log('Server running on port 3000 . . . ');
 app.listen(process.env.PORT || 3000);
