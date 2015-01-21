@@ -15,6 +15,10 @@ html
 					div#conformation
 						h2= "Thank you for subscribing!"
 						a(href='/') Go back
+				else if(submitted == false)
+					div#conformation
+						h2= error
+						a(href='/') Go back						
 				else
 					div#subscribe
 							form(method="post" action="/" class="form-horizontal")
@@ -23,21 +27,21 @@ html
 										span.blueText
 											| Notify me when the weather is below
 									div(class="col-sm-6")
-										input(type="number" name ="notificationTemprature" class="form-control" id="inputTemprature" placeholder="Temprature in Fahrenheit . . ." required=true)
+										input(type="number" name ="notificationTemprature" class="form-control" id="inputTemprature" placeholder="Temprature in Fahrenheit . . ." required=true min=-999 max=999)
 									span(class="glyphicon glyphicon-flag" aria-hidden="true")
 								div(class='form-group')
 									label(for="inputPhoneNumber" class="col-sm-3 control-label")
 										span.blueText
 											| Phone Number
 									div(class="col-sm-6")
-										input(type="number" name ="phoneNumber" class="form-control" id="inputPhoneNumber" placeholder="123457890" required=true)
+										input(type="number" name ="phoneNumber" class="form-control" id="inputPhoneNumber" placeholder="123457890" required=true min=1000000000 max=9999999999)
 									span(class="glyphicon glyphicon-phone" aria-hidden="true")
 								div(class='form-group')
 									label(for="inputZipCode" class="col-sm-3 control-label")
 										span.blueText
 											| Zipcode
 									div(class="col-sm-6")
-										input(type="number" name ="zipcode" class="form-control" id="inputZipCode" placeholder="56601" required=true)
+										input(type="number" name ="zipcode" class="form-control" id="inputZipCode" placeholder="56601" required=true min=10000 max=99999)
 									span(class="glyphicon glyphicon-map-marker" aria-hidden="true")
 								div(class="form-group" id="submitDiv")
 									div(class="col-sm-offset-2 col-sm-10")
