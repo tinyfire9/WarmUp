@@ -5,7 +5,6 @@ var clientModel = models.clientModel;
 var Recipient = function(){}
 
 Recipient.prototype.addRecipient = function(phoneNumber, zipcode, notificationTemprature, callback){
-	console.log(clientModel);
 	var newClient = new clientModel({   phoneNumber : phoneNumber,
 										zipcode : zipcode,
 										notificationTemprature : notificationTemprature
