@@ -1,0 +1,34 @@
+html
+	head
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+		link(rel="stylesheet" href="css/custom.css")
+	body
+		div#wrapper
+			.jumbotron
+				if(submitted == true)
+					div#conformation
+						h2= "Thank you for subscribing!"
+						a(href='/') Go back
+				else
+					div#subscribe
+							form(method="post" action="/" class="form-horizontal")
+								div(class='form-group')
+									label(for="inputTemprature" class="col-sm-3 control-label")
+										| Notify me when the weather is below :
+									div(class="col-sm-6")
+										input(type="number" name ="notificationTemprature" class="form-control" id="inputTemprature" placeholder="Temprature in Fahrenheit . . ." required=true)
+								div(class='form-group')
+									label(for="inputPhoneNumber" class="col-sm-3 control-label")
+										| Phone Number
+									div(class="col-sm-6")
+										input(type="number" name ="phoneNumber" class="form-control" id="inputPhoneNumber" placeholder="123457890" required=true)
+								div(class='form-group')
+									label(for="inputZipCode" class="col-sm-3 control-label")
+										| Zipcode
+									div(class="col-sm-6")
+										input(type="number" name ="zipcode" class="form-control" id="inputZipCode" placeholder="56601" required=true)
+								div(class='form-group')
+									div(class="col-sm-offset-2 col-sm-10")
+										button(type="submit" class="btn btn-default")
+											| Subscribe!
