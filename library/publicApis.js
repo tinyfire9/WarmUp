@@ -28,13 +28,13 @@ PublicApis.prototype.currentTemprature = function(zipcode, callback){
 	});
 }
 
-PublicApis.prototype.sendsms = function(phoneNumber, temprature, city){
+PublicApis.prototype.sendsms = function(phoneNumber, messageBody, callback){
 	client.messages.create({
 		to : "'" + phoneNumber + "'",
 		from : '+19287665019',
-		body : "Hey, the weather in " + city + " is " + temprature + " degrees. -Sent from WarmUp."
+		body : messageBody
 	}, function(err, message){
-			process.stdout.write(message.status);
+			callback(null, message);
 	});
 }
 
