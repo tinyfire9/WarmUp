@@ -21,8 +21,8 @@ exports.addRecipientResponseHandler = function(req, res){
 								}));
 		}
 		messageBody = "Hi, thank you for subscribing! The current temprature in " + weatherData.city + " is " +
-					   weatherData.temprature + " " + degreeSign + "F. We will notify you every 24 hours, if the temprature is below " + 
-					   req.body.notificationTemprature + " " + degreeSign + "F, -warmUp";
+					   weatherData.temprature + " " + degreeSign + "F. We will notify you every 12 hours, if the temprature is below " + 
+					   req.body.notificationTemprature + " " + degreeSign + "F. -Sent from warmUp";
 		WarmUp.sendsms(req.body.phoneNumber, messageBody, function(error, message){
 			if(error)
 			{
