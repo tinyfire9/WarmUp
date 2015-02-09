@@ -36,7 +36,7 @@ app.post('/', routes.addRecipientResponseHandler)
 var WarmUp = new WarmUp();
 setInterval(function(){
 	WarmUp.checkTempratureAndSendSMS();
-	console.log("testing ...")
+	console.log(new Date().toLocaleTimeString());
 }, 60000 * 60 * 12);
 
 console.log('Server running on port 3000 . . . ');
