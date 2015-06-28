@@ -11,4 +11,4 @@ var clientSchema = new schema({
 
 var clientModel = mongoose.model('weatherNotification', clientSchema);
 
-exports.clientModel = clientModel;
+module.exports = clientModel;
