@@ -1,8 +1,10 @@
-body{
-	background-image : url('/images/escheresque.png');
-	
-}
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400);
+@import url(http://fonts.googleapis.com/css?family=Josefin+Sans);
 
+body{
+	font-family: 'Josefin Sans', sans-serif;
+	background-color: #AFE4DD;
+}
 #wrapper{
 	margin-top : 7%;
 }
@@ -11,26 +13,22 @@ body{
 	text-align: center;
 }
 
+.jumbotron{
+	border-radius: 5px;
+	margin : 3%;
+	background-color: #ECF9F8;
+}
 #warmUp{
-	font-family: 'cursive';
+	font-family: 'Lato';
 	text-align: center;
 	font-weight: bold;
+	margin-top: 10%;
 	padding-top: 3%;
 }
 
-#grey{
-	color: #001F3F;
-}
-
-#red{
-	background-color: #FF4136;
-	color: #FFFFFF;
-	border-radius: 2px;
-	padding: 1px;
-}
-
 .col-sm-3{
-	color: #FF4136;
+	color: #328595;
+	font-weight: bold;
 }
 
 .glyphicon{
@@ -38,5 +36,15 @@ body{
 }
 
 #submitDiv{
-	margin-left: 300px;
+	margin-left: 34%;
+}
+
+h3{
+	margin : 3%;
+	padding-bottom: 2%;
+}
+
+a, button{
+	font-family: 'Lato', sans-serif;
+	margin : 0.5%;
 }
