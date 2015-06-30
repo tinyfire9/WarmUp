@@ -14,9 +14,21 @@ exports.addSubscriptionResponseHandler = function(req, res){
 	var phoneNumber = req.body.phoneNumber,
 		zipcode = req.body.zipcode,
 		notificationTemprature = req.body.notificationTemprature;
-	WarmUp.checkTempratureAndSmsWelcomeMessage(phoneNumber, zipcode, notificationTemprature, function(response){
-		console.log(response);
-		res.render('layout', response);
+	Subscribe.querySubscriber(phoneNumber, function(response){
+		if(!response)
+		{
+			WarmUp.checkTempratureAndSmsWelcomeMessage(phoneNumber, zipcode, notificationTemprature, function(response){
+				console.log(response);
+				res.render('layout', response);
+			});
+		}
+		else
+		{
+			res.render('layout', {
+				statusCode : statusCodes.error.error, 
+				error : "Sorry, you have already subscribed!"
+			});
+		}
 	});
 }
 
