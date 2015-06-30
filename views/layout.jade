@@ -1,0 +1,33 @@
+html
+	head
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+		link(rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css')
+		link(rel="stylesheet" href="css/custom.css")
+		title="warmUp"
+	body
+		h1#warmUp(class="animated bounceInDown")
+			span
+				| warm
+			span#red
+				| Up
+		div#wrapper
+			if(statusCode == 'error')
+				include ./partials/error.jade
+			else if(statusCode == 'appIndex')
+				include ./partials/index/index.jade
+			else if(statusCode == 'updateSubscriptionIndex')
+				include ./partials/index/updateSubscriptionIndex.jade
+			else if(statusCode == 'unsubscriptionIndex')
+				include ./partials/index/unsubscriptionIndex.jade
+			else if(statusCode == 'subscriptionIndex')
+				include ./partials/subscription/subscription.jade
+			else if(statusCode == 'updateSubscription')
+				include ./partials/subscription/updateSubscription.jade
+			else if(statusCode == 'unsubscription')
+				include ./partials/subscription/unsubscription.jade
+			else if(statusCode == 'subscriptionSuccess')
+				include ./partials/success/subscriptionSuccess.jade
+			else if(statusCode == 'updateSubscriptionSuccess')
+				include ./partials/success/updateSubscriptionSuccess.jade
+			else if(statusCode == 'unsubscriptionSuccess')
+				include ./partials/success/unsubscriptionSuccess.jade
