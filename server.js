@@ -1,12 +1,9 @@
 var express = require('express')
 , app = express()
-, mongoose = require('mongoose')
 , serverStatic = require('serve-static')
 , methodOverride = require('method-override')
 , bodyParser = require('body-parser')
 , errorHandler = require('errorhandler')
-, jade = require('jade')
-, Recipient = require('./library/recipient.js')
 , WarmUp = require('./library/warmUp.js')
 , routes = require('./controller/routes.js');
 
@@ -30,10 +27,17 @@ switch(app.get('env'))
 }
 
 app.get('/', routes.indexResponseHandler);
+app.get('/subscribe', routes.subscriptionResponseHandler);
+app.post('/subscribe', routes.addSubscriptionResponseHandler);
 
-app.post('/', routes.addRecipientResponseHandler)
+app.get('/update', routes.updateSubscriptionResponseHandler);
+app.post('/update/subscriptionInfo', routes.updateSubscriptionInfoResponseHandler);
+app.post('/update/:phoneNumber', routes.updateSubscriptionStatusResponseHandler);
 
-var WarmUp = new WarmUp();
+app.get('/unsubscribe', routes.unsubscriptionResponseHandler);
+app.post('/unsubscribe/unsubscriptionInfo', routes.unsubscriptionInfoResponseHandler);
+app.post('/unsubscribe/:phoneNumber', routes.unsubscriptionStatusResponseHandler);
+
 setInterval(function(){
 	WarmUp.checkTempratureAndSendSMS();
 	console.log(new Date().toLocaleTimeString());
