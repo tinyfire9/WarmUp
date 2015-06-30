@@ -2,7 +2,8 @@ var clientModel = require('../models/model.js');
 
 var Temprature = require('./temprature.js'),
 	Subscribe = require('./subscribe.js'),
-	Sms = require('./sms.js');
+	Sms = require('./sms.js'),
+	statusCodes = require('./statusCodes.js');
 
 var WarmUp = function(){}
 
@@ -51,38 +52,41 @@ WarmUp.prototype.checkTempratureAndSmsWelcomeMessage = function(phoneNumber, zip
 		}
 		if(!weatherData)
 		{
-			callback({ submitted : false, error: "Oops! The zipcode, " + zipcode + ", does not exists!" });
+			callback({ statusCode : statusCodes.error.error, error: "Oops! The zipcode, " + zipcode + ", does not exists!" });
 		}
-		messageBody = "Hi, thank you for subscribing! The current temprature in " + weatherData.city + " is " +
-					   weatherData.temprature + " " + degreeSign + "F. We will notify you every 12 hours, if the temprature is below " + 
-					   notificationTemprature + " " + degreeSign + "F. -Sent from warmUp";
-		Sms.sendSms(phoneNumber, messageBody, function(error, message){
-			if(error)
-			{
-				throw Error(error);
-			}
-			if(message)
-			{
-				Subscribe.addSubscriber(phoneNumber, zipcode, notificationTemprature, function(error, subscribtion){
-					if(error)
-					{
-						throw Error(error);
-					}
-					if(subscribtion)
-					{
-						callback(true);
-					}
-					else
-					{
-						callback(false);
-					}
-				});
-			}
-			else
-			{
-				callback({ submitted : false, error: "Oops! The phone number, " + phoneNumber + ", does not exists!" });
-			}
-		});
+		else
+		{
+			messageBody = "Hi, thank you for subscribing! The current temprature in " + weatherData.city + " is " +
+						   weatherData.temprature + " " + degreeSign + "F. We will notify you every 12 hours, if the temprature is below " + 
+						   notificationTemprature + " " + degreeSign + "F. -Sent from warmUp";
+			Sms.sendSms(phoneNumber, messageBody, function(error, message){
+				if(error)
+				{
+					throw Error(error);
+				}
+				if(message)
+				{
+					Subscribe.addSubscriber(phoneNumber, zipcode, notificationTemprature, function(error, subscription){
+						if(error)
+						{
+							throw Error(error);
+						}
+						if(subscription)
+						{
+							callback({ statusCode : statusCodes.success.subscriptionSuccess, error : null});
+						}
+						else
+						{
+							callback({ statusCode :  statusCodes.error.error, error: "Sorry, something went wrong. Please try again, later!" });
+						}
+					});
+				}
+				else
+				{
+					callback({ statusCode :  statusCodes.error.error, error: "Oops! The phone number, " + phoneNumber + ", does not exists!" });
+				}
+			});
+		}
 	});
 }
 
@@ -97,9 +101,9 @@ WarmUp.prototype.checkTempratureAndSmsUpdate = function(phoneNumber, zipcode, no
 		}
 		if(!weatherData)
 		{
-			callback({ submitted : false, error: "Oops! The zipcode, " + zipcode + ", does not exists!" });
+			callback({ statusCode :  statusCodes.error.updateSubscriptionError, error: "Oops! The zipcode, " + zipcode + ", does not exists!" });
 		}
-		messageBody = "Thank you for updating your notification preferences! Your current subscribtion information is as follows :\n\tPhone number : " +
+		messageBody = "Thank you for updating your notification preferences! Your current subscription information is as follows :\n\tPhone number : " +
 					phoneNumber + ", \n\t zipcode : " + zipcode + "\n\t Notification temprature : " + notificationTemprature + " " + degreeSign + "F. -Sent from warmUp";
 		Sms.sendSms(phoneNumber, messageBody, function(error, message){
 			if(error)
@@ -108,7 +112,7 @@ WarmUp.prototype.checkTempratureAndSmsUpdate = function(phoneNumber, zipcode, no
 			}
 			if(!message)
 			{
-				callback({ submitted : false, error: "Oops! The phone number, " + phoneNumber + ", does not exists!"});
+				callback({ statusCode :  statusCodes.error.updateSubscriptionError, error: "Oops! The phone number, " + phoneNumber + ", does not exists!"});
 			}
 			else
 			{
@@ -119,11 +123,11 @@ WarmUp.prototype.checkTempratureAndSmsUpdate = function(phoneNumber, zipcode, no
 				Subscribe.updateSubscriberInfo(phoneNumber, update, function(success){
 					if(success)
 					{
-						callback(true);
+						callback({ statusCode :  statusCodes.success.updateSubscriptionSuccess, error: null});
 					}
 					else
 					{
-						callback(false);
+						callback({ statusCode :  statusCodes.error.updateSubscriptionError, error: "Sorry, something went wrong. Please try again, later!"});
 					}
 				});
 			}
@@ -132,8 +136,9 @@ WarmUp.prototype.checkTempratureAndSmsUpdate = function(phoneNumber, zipcode, no
 	});
 }
 
-WarmUp.prototype.smsUnsubscribtion = function(phoneNumber, callback){
+WarmUp.prototype.smsUnsubscription = function(phoneNumber, callback){
 	var messageBody = 'We miss you :( ! - Sent from warmUp';
+		console.log(phoneNumber);
 	Sms.sendSms(phoneNumber, messageBody, function(error, message){
 		if(error)
 		{
@@ -141,14 +146,14 @@ WarmUp.prototype.smsUnsubscribtion = function(phoneNumber, callback){
 		}
 		if(message)
 		{
-			Subscribe.removeSubscriber(phoneNumber, function(subscribtion){
-				if(subscribtion == true)
+			Subscribe.removeSubscriber(phoneNumber, function(subscription){
+				if(subscription == true)
 				{
-					callback(true);
+					callback({statusCode :  statusCodes.success.unsubscriptionSuccess, error: null});
 				}
 				else
 				{
-					callback(false);
+					callback({ statusCode :  statusCodes.error.unsubscriptionError, error: "Sorry, something went wrong. Please try again, later!"});
 				}
 			});
 		}
