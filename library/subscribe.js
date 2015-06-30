@@ -16,6 +16,16 @@ Subscribe.prototype.addSubscriber = function(phoneNumber, zipcode, notificationT
 	});
 }
 
+Subscribe.prototype.querySubscriber = function(phoneNumber, callback){
+	clientModel.findOne({phoneNumber : phoneNumber}, function(error, subscriberInfo){
+		if(error)
+		{
+			throw Error(error);
+		}
+		callback(subscriberInfo);
+	});
+}
+
 Subscribe.prototype.querySubscribers = function(callback){
 	clientModel.find({}, function(error, clients){
 		if(error)
