@@ -1,0 +1,13 @@
+div#subscribe
+	form(method="post" action="/update/subscriptionInfo" class="form-horizontal")
+		div(class='form-group')
+			label(for="inputPhoneNumber" class="col-sm-3 control-label")
+				span.blueText
+					| Phone Number
+			div(class="col-sm-6")
+				input(type="number" name ="phoneNumber" class="form-control" id="inputPhoneNumber" placeholder="123457890" required=true min=1000000000 max=9999999999)
+			span(class="glyphicon glyphicon-phone" aria-hidden="true")
+		div(class="form-group" id="submitDiv")
+			div(class="col-sm-offset-2 col-sm-10")
+				button(type="submit" class="btn btn-default")
+					| Update!
