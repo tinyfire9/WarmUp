@@ -38,10 +38,5 @@ app.get('/unsubscribe', routes.unsubscriptionResponseHandler);
 app.post('/unsubscribe/unsubscriptionInfo', routes.unsubscriptionInfoResponseHandler);
 app.post('/unsubscribe/:phoneNumber', routes.unsubscriptionStatusResponseHandler);
 
-setInterval(function(){
-	WarmUp.checkTempratureAndSendSMS();
-	console.log(new Date().toLocaleTimeString());
-}, 60000 * 60 * 12);
-
 console.log('Server running on port 3000 . . . ');
 app.listen(process.env.PORT || 3000);
