@@ -1,5 +1,5 @@
-var accountSid = 'AC7e4b2165797346a1c01ff3dba72e5a27';
-var authToken = 'aceffca115a7dcb55063b7b3e8db8f0c';
+var accountSid = process.env.accountSid;
+var authToken = process.env.authToken;
 var client = require('twilio')(accountSid, authToken);
 
 exports.client = client;
