@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
 var WarmUp = require('../library/warmUp.js');
-WarmUp.checkTempratureAndSendSMS();
+WarmUp.checkTempratureAndSmsTemprature();
 console.log(new Date().toLocaleTimeString());
