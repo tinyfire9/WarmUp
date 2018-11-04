@@ -59,6 +59,7 @@ Subscribe.prototype.removeSubscriber = function(phoneNumber, callback){
 
 Subscribe.prototype.updateSubscriberInfo = function(phoneNumber, update, callback){
 	clientModel.findOne({phoneNumber : phoneNumber}, function(error, recipientInfo){
+		console.log({ error, recipientInfo });
 		if(error)
 		{
 			console.log(Error(error));

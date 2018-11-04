@@ -1,2 +1,5 @@
 node_modules/*
 library/test.js
+app.yaml
+package-lock.json
+.gcloudignore

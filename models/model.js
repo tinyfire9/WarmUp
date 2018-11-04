@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
-mongoose.connect('mongodb://db_username:db_password@ds029824.mongolab.com:29824/heroku_0mg52fll');
+mongoose.connect('');
 
 var clientSchema = new schema({
 	 phoneNumber : Number,
