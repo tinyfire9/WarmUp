@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
+var mongolabURI = require('../library/config').mongolabURI;
 
-mongoose.connect('');
+mongoose.connect(mongolabURI || '');
 
 var clientSchema = new schema({
 	 phoneNumber : Number,
