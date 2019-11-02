@@ -12,7 +12,7 @@
     "express": "^4.11.0",
     "jade": "^1.9.1",
     "method-override": "^2.3.1",
-    "mongoose": "4.1.9",
+    "mongoose": "5.7.5",
     "serve-static": "^1.8.0",
     "twilio": "^1.10.0",
     "yql": "^1.0.2"
